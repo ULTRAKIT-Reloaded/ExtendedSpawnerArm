@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedSpawnerArm", "ExtendedSpawnerArm\ExtendedSpawnerArm.csproj", "{12CDAA28-47DE-4999-B66F-EF84FC58E3EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12CDAA28-47DE-4999-B66F-EF84FC58E3EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12CDAA28-47DE-4999-B66F-EF84FC58E3EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12CDAA28-47DE-4999-B66F-EF84FC58E3EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12CDAA28-47DE-4999-B66F-EF84FC58E3EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8FD2A79D-0B59-4C3A-A910-79E98F0ED1ED}
+	EndGlobalSection
+EndGlobal
