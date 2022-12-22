@@ -58,6 +58,13 @@ namespace ExtendedSpawnerArm
                 Debug.Log(enemy?.gameObject?.name ?? "null");
                 spawnable.gameObject = enemy;
                 spawnable.preview = new GameObject();
+                switch (pair.Key)
+                {
+                    case "DroneFlesh": spawnable.gridIcon = Plugin.fpeye; break;
+                    case "DroneSkull Variant": spawnable.gridIcon = Plugin.fpface; break;
+                    case "MinosBoss": spawnable.gridIcon = Plugin.minos; break;
+                    case "Wicked": spawnable.gridIcon = Plugin.wicked; break;
+                }
 
                 _enemies.Add(spawnable);
             }
@@ -119,6 +126,7 @@ namespace ExtendedSpawnerArm
                 spawnable.spawnableType = SpawnableType.SimpleSpawn;
                 spawnable.gameObject = leviathan;
                 spawnable.preview = new GameObject();
+                spawnable.gridIcon = Plugin.levi;
 
                 _enemies.Add(spawnable);
             }
