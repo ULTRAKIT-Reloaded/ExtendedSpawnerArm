@@ -15,6 +15,7 @@ namespace ExtendedSpawnerArm
 {
     public static class SpawnerInjector
     {
+        static bool _init = false;
         static AssetBundle Common;
         static AssetBundle Act2;
 
@@ -40,7 +41,7 @@ namespace ExtendedSpawnerArm
             foreach (string scenePath in scenePaths)
                 SceneBlackList.Add(Path.GetFileNameWithoutExtension(scenePath));
             string sceneName = Path.GetFileNameWithoutExtension(scenePaths[10]);
-            SceneManager.LoadScene(sceneName);
+            SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
 
             SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -111,6 +112,7 @@ namespace ExtendedSpawnerArm
             }
             if (scene.name == "Level 5-4")
             {
+                if (_init) return;
                 GameObject[] roots = scene.GetRootGameObjects();
                 GameObject obj = roots.Where(g => g.name == "Surface").First().transform.Find("Stuff/Boss/Leviathan").gameObject;
                 GameObject leviathan = GameObject.Instantiate(obj);
@@ -129,6 +131,7 @@ namespace ExtendedSpawnerArm
                 spawnable.gridIcon = Plugin.levi;
 
                 _enemies.Add(spawnable);
+                SceneManager.UnloadSceneAsync("Level 5-4");
             }
         }
 
