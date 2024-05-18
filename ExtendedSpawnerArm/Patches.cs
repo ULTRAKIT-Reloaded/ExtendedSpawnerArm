@@ -4,62 +4,75 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UnityEngine;
+using UnityEngine.SceneManagement;
 
-namespace ExtendedSpawnerArm
+namespace ULTRAKIT.SpawnerArm.Patches
 {
     [HarmonyPatch(typeof(SpawnMenu))]
     public static class SpawnMenuPatch
     {
-        private static bool init = false;
         [HarmonyPatch("Awake")]
         [HarmonyPrefix]
         public static void AwakePrefix(SpawnMenu __instance, SpawnableObjectsDatabase ___objects)
         {
-            if (init) return;
-            ___objects.enemies = ___objects.enemies.Concat(SpawnerInjector._enemies).ToArray();
-            init = true;
+            // Creates a constant copy of vanilla database for loader use
+            // The database persists across loads/scenes, so doing otherwise would keep adding spawnables to a list that already has them
+            if (!SpawnablesLoader.init)
+            {
+                // Doing it here does not cause the bloodstains to turn into squares
+                SpawnablesInjector.Init();
+
+                Registries.spawn_spawnablesDatabase.enemies = ___objects.enemies;
+                Registries.spawn_spawnablesDatabase.objects = ___objects.objects;
+                Registries.spawn_spawnablesDatabase.sandboxTools = ___objects.sandboxTools;
+                SpawnablesLoader.init = true;
+            }
+
+            SpawnablesLoader.InjectSpawnables(__instance);
+            ___objects.sandboxTools = Registries.spawn_tools;
+            ___objects.enemies = Registries.spawn_enemies;
+            ___objects.objects = Registries.spawn_objects;
         }
     }
 
-    [HarmonyPatch(typeof(BossHealthBar))]
-    public static class BossHealthBarPatch
+    [HarmonyPatch(typeof(LeviathanTail))]
+    public static class LeviathanTailPatch
     {
         [HarmonyPatch("Awake")]
         [HarmonyPostfix]
-        public static void AwakePostfix(BossHealthBar __instance, EnemyIdentifier ___eid, GameObject ___bossBar)
+        public static void AwakePostfix(LeviathanTail __instance)
         {
-            var cust = __instance.gameObject.GetComponent<CustomHealthbarPos>();
-            if (cust)
-            {
-                cust.barObj = ___bossBar;
-                cust.enemy = ___eid.gameObject;
-                cust.enabled = true;
-            }
+            SkinnedMeshRenderer renderer = __instance.transform.Find("Leviathan_SplineHook_Basic/ArmR").GetComponent<SkinnedMeshRenderer>();
+            renderer.material.color = Color.white;
+            renderer.material.mainTexture = renderer.material.mainTexture;
         }
     }
 
-    [HarmonyPatch(typeof(MinosBoss))]
-    public static class MinosPatch
+    [HarmonyPatch(typeof(ComplexSplasher))]
+    public static class LeviathanTeasePatch
     {
-        static float minosHeight = 600, minosOffset = 200;
-
-        [HarmonyPatch("Start")]
-        [HarmonyPrefix]
-        public static void StartPrefix(MinosBoss __instance)
+        [HarmonyPatch("Awake"), HarmonyPostfix]
+        public static void AwakePostfix(ComplexSplasher __instance)
         {
-            Debug.Log("starting");
-            var cust = __instance.GetComponentInChildren<CustomHealthbarPos>(true);
-            if (cust)
-            {
-                Debug.Log("custom");
-                cust.offset = Vector3.up * minosHeight * 1.5f;
-                cust.size = 0.25f;
-                var plr = MonoSingleton<NewMovement>.Instance.transform;
-                __instance.transform.position = plr.position + Vector3.down * minosHeight;
-                __instance.transform.position += plr.forward * minosOffset;
-                __instance.transform.forward = Vector3.ProjectOnPlane((plr.position - __instance.transform.position).normalized, Vector3.up);
-            }
+            Transform armature = __instance.transform.Find("Leviathan_SplineHook_Basic/ArmR");
+            if (armature == null) return;
+            SkinnedMeshRenderer renderer = armature.GetComponent<SkinnedMeshRenderer>();
+            renderer.material.color = Color.white;
+            renderer.material.mainTexture = renderer.material.mainTexture;
+        }
+    }
+
+    [HarmonyPatch(typeof(ObjectActivator))]
+    public static class LeviathanTeasePatch2
+    {
+        [HarmonyPatch("Start"), HarmonyPostfix]
+        public static void StartPostfix(ObjectActivator __instance)
+        {
+            Transform armature = __instance.transform.Find("Leviathan_HeadFix/Leviathan");
+            if (armature == null) return;
+            SkinnedMeshRenderer renderer = armature.GetComponent<SkinnedMeshRenderer>();
+            renderer.material.color = Color.white;
+            renderer.material.mainTexture = renderer.material.mainTexture;
         }
     }
 
@@ -70,6 +83,7 @@ namespace ExtendedSpawnerArm
         [HarmonyPrefix]
         public static bool GetHitPrefix(Wicked __instance)
         {
+            // Keeps Something Wicked from getting mad and breaking when there is nowhere to teleport
             if (__instance.patrolPoints[0] == null)
             {
                 var oldAud = __instance.hitSound.GetComponent<AudioSource>();

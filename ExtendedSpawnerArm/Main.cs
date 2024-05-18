@@ -1,37 +1,48 @@
-﻿using HarmonyLib;
+﻿using BepInEx;
+using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UMM;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace ExtendedSpawnerArm
+namespace ULTRAKIT.SpawnerArm
 {
-    [UKPlugin("petersone1.extendedSpawner", "Extended Spawner Arm", "1.0.0", "Adds missing spawnables to the spawner arm", true, false)]
-    public class Plugin : UKMod
+    [BepInPlugin("ULTRAKIT.spawner_arm", "Extended Spawner Arm", "2.0.0")]
+    public class Plugin : BaseUnityPlugin
     {
-        public static Sprite fpeye;
-        public static Sprite fpface;
-        public static Sprite levi;
-        public static Sprite minos;
-        public static Sprite wicked;
+        public static Dictionary<string, Sprite> SpawnIcons = new Dictionary<string, Sprite>();
 
-        public override void OnModLoaded()
+        public void Start()
         {
-            fpeye = SetSprite(Properties.Resources.fpeye_jpg);
-            fpface = SetSprite(Properties.Resources.fpface_jpg);
-            levi = SetSprite(Properties.Resources.levi_jpg);
-            minos = SetSprite(Properties.Resources.minos_jpg);
-            wicked = SetSprite(Properties.Resources.wicked_jpg);
+            CreateSprites();
 
-            SpawnerInjector.Init();
-            Harmony harmony = new Harmony("ExtendedSpawnerArm");
+            SpawnablesInjector.Init();
+            Harmony harmony = new Harmony("ULTRAKIT.ExtendedSpawnerArm");
             harmony.PatchAll();
+        }
+
+        private void CreateSprites()
+        {
+            Sprite fpeye = SetSprite(Properties.Resources.fpeye_jpg);
+            Sprite fpface = SetSprite(Properties.Resources.fpface_jpg);
+            Sprite levi = SetSprite(Properties.Resources.levi_jpg);
+            Sprite minos = SetSprite(Properties.Resources.minos_jpg);
+            Sprite wicked = SetSprite(Properties.Resources.wicked_jpg);
+            Sprite d_drone = SetSprite(Properties.Resources.d_drone_jpg);
+            Sprite cameye = SetSprite(Properties.Resources.cameye_jpg);
+
+            SpawnIcons.Add("DroneFlesh", fpeye);
+            SpawnIcons.Add("DroneSkull Variant", fpface);
+            SpawnIcons.Add("MinosBoss", minos);
+            SpawnIcons.Add("Wicked", wicked);
+            SpawnIcons.Add("Leviathan", levi);
+            SpawnIcons.Add("Drone Variant", d_drone);
+            SpawnIcons.Add("DroneFleshCamera Variant", cameye);
         }
 
         private static Sprite SetSprite(byte[] bytes)

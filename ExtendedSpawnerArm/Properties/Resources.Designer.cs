@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ExtendedSpawnerArm.Properties {
+namespace ULTRAKIT.SpawnerArm.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ExtendedSpawnerArm.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ExtendedSpawnerArm.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ULTRAKIT.SpawnerArm.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,26 @@ namespace ExtendedSpawnerArm.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] cameye_jpg {
+            get {
+                object obj = ResourceManager.GetObject("cameye_jpg", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] d_drone_jpg {
+            get {
+                object obj = ResourceManager.GetObject("d_drone_jpg", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

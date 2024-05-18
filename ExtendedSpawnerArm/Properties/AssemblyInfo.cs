@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("ExtendedSpawnerArm")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("BepInEx plugin to extend the spawner arm in ULTRAKILL.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("HP")]
+[assembly: AssemblyCompany("ULTRAKIT")]
 [assembly: AssemblyProduct("ExtendedSpawnerArm")]
 [assembly: AssemblyCopyright("Copyright © HP 2022")]
 [assembly: AssemblyTrademark("")]
