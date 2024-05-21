@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace ULTRAKIT.SpawnerArm.Patches
@@ -22,16 +23,16 @@ namespace ULTRAKIT.SpawnerArm.Patches
                 // Doing it here does not cause the bloodstains to turn into squares
                 SpawnablesInjector.Init();
 
-                Registries.spawn_spawnablesDatabase.enemies = ___objects.enemies;
-                Registries.spawn_spawnablesDatabase.objects = ___objects.objects;
-                Registries.spawn_spawnablesDatabase.sandboxTools = ___objects.sandboxTools;
+                Registry.SpawnablesDatabase.enemies = ___objects.enemies;
+                Registry.SpawnablesDatabase.objects = ___objects.objects;
+                Registry.SpawnablesDatabase.sandboxTools = ___objects.sandboxTools;
                 SpawnablesLoader.init = true;
             }
 
             SpawnablesLoader.InjectSpawnables(__instance);
-            ___objects.sandboxTools = Registries.spawn_tools;
-            ___objects.enemies = Registries.spawn_enemies;
-            ___objects.objects = Registries.spawn_objects;
+            ___objects.sandboxTools = Registry.Tools;
+            ___objects.enemies = Registry.Enemies;
+            ___objects.objects = Registry.Objects;
         }
     }
 
