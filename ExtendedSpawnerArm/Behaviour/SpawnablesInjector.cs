@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEditor;
 using HarmonyLib;
+using ULTRAKIT.Core;
 
 namespace ULTRAKIT.SpawnerArm
 {
@@ -44,7 +45,7 @@ namespace ULTRAKIT.SpawnerArm
                 spawnable.spawnableType = SpawnableType.SimpleSpawn;
                 spawnable.gameObject = GrabEnemy($"{pair.Key}.prefab");
                 spawnable.preview = new GameObject();
-                spawnable.gridIcon = Registries.spawn_sprites[pair.Key];
+                spawnable.gridIcon = Registry.SpawnIcons[pair.Key];
 
                 _enemies.Add(spawnable);
             }
@@ -123,7 +124,7 @@ namespace ULTRAKIT.SpawnerArm
             spawnable.gameObject = LeviathanBase;
             //spawnable.gameObject = AssetLoader.AssetFind<GameObject>("LeviathanHead.prefab");
             spawnable.preview = AssetLoader.AssetFind<GameObject>("Leviathan Preview Variant.prefab");
-            spawnable.gridIcon = Registries.spawn_sprites["Leviathan"];
+            spawnable.gridIcon = Registry.SpawnIcons["Leviathan"];
 
             SetHealthBar(LeviathanBase, "Leviathan");
             _enemies.Add(spawnable);
@@ -137,7 +138,7 @@ namespace ULTRAKIT.SpawnerArm
                 SetHealthBar(obj, enemy);
                 return obj;
             }
-            UKLogger.LogWarning($"Could not find enemy {enemy}");
+            Mod.Logger.LogWarning($"Could not find enemy {enemy}");
             return null;
         }
 
@@ -149,15 +150,6 @@ namespace ULTRAKIT.SpawnerArm
                 bhb = obj.GetComponentInChildren<EnemyIdentifier>(true).gameObject.AddComponent<BossHealthBar>();
                 bhb.bossName = "";
             }
-
-            // Sets health bars to remain over the boss's head to avoid covering the entire screen
-            // ENEMY POSITION CURRENTLY UNGRABBABLE, HEALTH BARS WILL NOT TRACK
-            /*CustomHealthbarPos cust = bhb?.gameObject.AddComponent<CustomHealthbarPos>();
-            if (cust)
-            {
-                cust.offset = Vector3.up * 6;
-                cust.enabled = false;
-            }*/
         }
     }
 }

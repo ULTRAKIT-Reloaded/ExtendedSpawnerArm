@@ -6,13 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
+using ULTRAKIT.SpawnerArm.Objects;
+using ULTRAKIT.Core.Objects;
 
 namespace ULTRAKIT.SpawnerArm
 {
     public static class SpawnablesLoader
     {
-        private static List<UKSpawnable> spawnables => Registries.spawn_spawnables;
-        private static SpawnableObjectsDatabase spawnablesDatabase => Registries.spawn_spawnablesDatabase;
+        private static List<CustomSpawnable> spawnables => Registry.Spawnables;
+        private static SpawnableObjectsDatabase spawnablesDatabase => Registry.SpawnablesDatabase;
 
         public static bool init = false;
 
@@ -22,8 +24,8 @@ namespace ULTRAKIT.SpawnerArm
         /// <param name="bundle"></param>
         public static void LoadSpawnables(AssetBundle bundle)
         {
-            UKSpawnable[] ukS = bundle.LoadAllAssets<UKSpawnable>();
-            foreach (UKSpawnable ukSpawnable in ukS)
+            CustomSpawnable[] ukS = bundle.LoadAllAssets<CustomSpawnable>();
+            foreach (CustomSpawnable ukSpawnable in ukS)
             {
                 ukSpawnable.prefab.AddComponent<RenderFixer>().LayerName = "Outdoors";
                 if (!spawnables.Contains(ukSpawnable))
@@ -37,8 +39,8 @@ namespace ULTRAKIT.SpawnerArm
         /// <param name="bundle"></param>
         public static void UnloadSpawnables(AssetBundle bundle)
         {
-            UKSpawnable[] ukS = bundle.LoadAllAssets<UKSpawnable>();
-            foreach (UKSpawnable ukSpawnable in ukS)
+            CustomSpawnable[] ukS = bundle.LoadAllAssets<CustomSpawnable>();
+            foreach (CustomSpawnable ukSpawnable in ukS)
             {
                 if (spawnables.Contains(ukSpawnable))
                     spawnables.Remove(ukSpawnable);
@@ -55,7 +57,7 @@ namespace ULTRAKIT.SpawnerArm
             List<SpawnableObject> enemies = new List<SpawnableObject>();
             List<SpawnableObject> objects = new List<SpawnableObject>();
 
-            foreach (UKSpawnable ukSpawnable in Registries.spawn_spawnables)
+            foreach (CustomSpawnable ukSpawnable in Registry.Spawnables)
             {
                 SpawnableObject spawnable = ScriptableObject.CreateInstance<SpawnableObject>();
                 spawnable.identifier = ukSpawnable.identifier;
@@ -84,12 +86,12 @@ namespace ULTRAKIT.SpawnerArm
                 }
             }
 
-            enemies.AddRange(Injectors.SpawnablesInjector._enemies);
+            enemies.AddRange(SpawnablesInjector._enemies);
 
             // Adds loaded spawnables onto the pre-existing list
-            Registries.spawn_tools = spawnablesDatabase.sandboxTools.Concat(tools).ToArray();
-            Registries.spawn_enemies = spawnablesDatabase.enemies.Concat(enemies).ToArray();
-            Registries.spawn_objects = spawnablesDatabase.objects.Concat(objects).ToArray();
+            Registry.Tools = spawnablesDatabase.sandboxTools.Concat(tools).ToArray();
+            Registry.Enemies = spawnablesDatabase.enemies.Concat(enemies).ToArray();
+            Registry.Objects = spawnablesDatabase.objects.Concat(objects).ToArray();
         }
     }
 }

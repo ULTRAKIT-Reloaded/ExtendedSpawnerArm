@@ -9,47 +9,39 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using ULTRAKIT.Core;
 
 namespace ULTRAKIT.SpawnerArm
 {
     [BepInPlugin("ULTRAKIT.spawner_arm", "Extended Spawner Arm", "2.0.0")]
     public class Plugin : BaseUnityPlugin
     {
-        public static Dictionary<string, Sprite> SpawnIcons = new Dictionary<string, Sprite>();
-
         public void Start()
         {
-            CreateSprites();
+            SetSprites();
 
             SpawnablesInjector.Init();
             Harmony harmony = new Harmony("ULTRAKIT.ExtendedSpawnerArm");
             harmony.PatchAll();
         }
 
-        private void CreateSprites()
+        private void SetSprites()
         {
-            Sprite fpeye = SetSprite(Properties.Resources.fpeye_jpg);
-            Sprite fpface = SetSprite(Properties.Resources.fpface_jpg);
-            Sprite levi = SetSprite(Properties.Resources.levi_jpg);
-            Sprite minos = SetSprite(Properties.Resources.minos_jpg);
-            Sprite wicked = SetSprite(Properties.Resources.wicked_jpg);
-            Sprite d_drone = SetSprite(Properties.Resources.d_drone_jpg);
-            Sprite cameye = SetSprite(Properties.Resources.cameye_jpg);
+            Sprite fpeye = GraphicsUtilities.CreateSprite(Properties.Resources.fpeye_jpg, 128, 128);
+            Sprite fpface = GraphicsUtilities.CreateSprite(Properties.Resources.fpface_jpg, 128, 128);
+            Sprite levi = GraphicsUtilities.CreateSprite(Properties.Resources.levi_jpg, 128, 128);
+            Sprite minos = GraphicsUtilities.CreateSprite(Properties.Resources.minos_jpg, 128, 128);
+            Sprite wicked = GraphicsUtilities.CreateSprite(Properties.Resources.wicked_jpg, 128, 128);
+            Sprite d_drone = GraphicsUtilities.CreateSprite(Properties.Resources.d_drone_jpg, 128, 128);
+            Sprite cameye = GraphicsUtilities.CreateSprite(Properties.Resources.cameye_jpg, 128, 128);
 
-            SpawnIcons.Add("DroneFlesh", fpeye);
-            SpawnIcons.Add("DroneSkull Variant", fpface);
-            SpawnIcons.Add("MinosBoss", minos);
-            SpawnIcons.Add("Wicked", wicked);
-            SpawnIcons.Add("Leviathan", levi);
-            SpawnIcons.Add("Drone Variant", d_drone);
-            SpawnIcons.Add("DroneFleshCamera Variant", cameye);
-        }
-
-        private static Sprite SetSprite(byte[] bytes)
-        {
-            Texture2D tex = new Texture2D(128, 128);
-            tex.LoadImage(bytes);
-            return Sprite.Create(tex, new Rect(0, 0, 128, 128), new Vector2(64, 64));
+            Registry.SpawnIcons.Add("DroneFlesh", fpeye);
+            Registry.SpawnIcons.Add("DroneSkull Variant", fpface);
+            Registry.SpawnIcons.Add("MinosBoss", minos);
+            Registry.SpawnIcons.Add("Wicked", wicked);
+            Registry.SpawnIcons.Add("Leviathan", levi);
+            Registry.SpawnIcons.Add("Drone Variant", d_drone);
+            Registry.SpawnIcons.Add("DroneFleshCamera Variant", cameye);
         }
     }
 }
