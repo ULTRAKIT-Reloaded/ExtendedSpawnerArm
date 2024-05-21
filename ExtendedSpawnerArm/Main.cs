@@ -14,6 +14,7 @@ using ULTRAKIT.Core;
 namespace ULTRAKIT.SpawnerArm
 {
     [BepInPlugin("ULTRAKIT.spawner_arm", "Extended Spawner Arm", "2.0.0")]
+    [BepInDependency("ULTRAKIT.Core", "1.0.0")]
     public class Plugin : BaseUnityPlugin
     {
         public void Start()
