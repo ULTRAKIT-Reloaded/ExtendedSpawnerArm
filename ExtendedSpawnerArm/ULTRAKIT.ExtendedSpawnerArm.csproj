@@ -154,8 +154,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SpawnablesLoader.cs" />
-    <Compile Include="SpawnablesInjector.cs" />
+    <Compile Include="Behaviour\SpawnablesLoader.cs" />
+    <Compile Include="Behaviour\SpawnablesInjector.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -173,6 +173,9 @@
     <None Include="Resources\levi.jpg.bytes" />
     <None Include="Resources\minos.jpg.bytes" />
     <None Include="Resources\wicked.jpg.bytes" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Objects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

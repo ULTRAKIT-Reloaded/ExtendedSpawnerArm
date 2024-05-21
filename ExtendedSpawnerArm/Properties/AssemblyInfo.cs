@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ExtendedSpawnerArm")]
+[assembly: AssemblyTitle("ULTRAKIT.ExtendedSpawnerArm")]
 [assembly: AssemblyDescription("BepInEx plugin to extend the spawner arm in ULTRAKILL.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ULTRAKIT")]
