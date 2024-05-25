@@ -149,6 +149,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="Objects\CustomObjectSpawnable.cs" />
     <Compile Include="Objects\CustomEnemySpawnable.cs" />
+    <Compile Include="Objects\CustomSpawnable.cs" />
     <Compile Include="Objects\VanillaEnemies\DarkDroneSpawnable.cs" />
     <Compile Include="Objects\VanillaEnemies\PanopticonEyeSpawnable.cs" />
     <Compile Include="Objects\VanillaEnemies\WickedSpawnable.cs" />

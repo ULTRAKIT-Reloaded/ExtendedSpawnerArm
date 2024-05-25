@@ -8,14 +8,11 @@ using UnityEngine;
 
 namespace ULTRAKIT.SpawnerArm.Objects
 {
-    public class CustomObjectSpawnable : ScriptableObject
+    public class CustomObjectSpawnable : CustomSpawnable
     {
-        public string identifier;
-        public GameObject prefab;
-        public Sprite icon;
         public bool isProp;
 
-        public SpawnableObject GetSpawnable()
+        public override SpawnableObject GetSpawnable()
         {
             SpawnableObject spawnable = CreateInstance<SpawnableObject>();
 

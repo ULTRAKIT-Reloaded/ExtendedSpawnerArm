@@ -7,14 +7,11 @@ using UnityEngine;
 
 namespace ULTRAKIT.SpawnerArm.Objects
 {
-    public class CustomEnemySpawnable : ScriptableObject
+    public class CustomEnemySpawnable : CustomSpawnable
     {
-        public string identifier;
-        public GameObject prefab;
-        public Sprite icon;
         public EnemyType enemyType;
 
-        public SpawnableObject GetSpawnable()
+        public override SpawnableObject GetSpawnable()
         {
             SpawnableObject spawnable = CreateInstance<SpawnableObject>();
 
