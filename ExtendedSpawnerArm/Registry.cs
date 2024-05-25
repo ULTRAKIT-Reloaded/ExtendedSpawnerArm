@@ -16,7 +16,5 @@ namespace ULTRAKIT.SpawnerArm
         public static SpawnableObject[] Tools = new SpawnableObject[0];
         public static SpawnableObject[] Enemies = new SpawnableObject[0];
         public static SpawnableObject[] Objects = new SpawnableObject[0];
-
-        public static Dictionary<string, Sprite> SpawnIcons = new Dictionary<string, Sprite>();
     }
 }

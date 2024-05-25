@@ -27,32 +27,11 @@ namespace ULTRAKIT.SpawnerArm
 
         public void Start()
         {
-            SetSprites();
-
             SpawnablesInjector.Init();
             Harmony harmony = new Harmony("ULTRAKIT.ExtendedSpawnerArm");
             harmony.PatchAll();
 
             Logger.LogInfo("ULTRAKIT Module Loaded: Extended Spawner Arm");
-        }
-
-        private void SetSprites()
-        {
-            Sprite fpeye = GraphicsUtilities.CreateSprite(Properties.Resources.fpeye_jpg, 128, 128);
-            Sprite fpface = GraphicsUtilities.CreateSprite(Properties.Resources.fpface_jpg, 128, 128);
-            Sprite levi = GraphicsUtilities.CreateSprite(Properties.Resources.levi_jpg, 128, 128);
-            Sprite minos = GraphicsUtilities.CreateSprite(Properties.Resources.minos_jpg, 128, 128);
-            Sprite wicked = GraphicsUtilities.CreateSprite(Properties.Resources.wicked_jpg, 128, 128);
-            Sprite d_drone = GraphicsUtilities.CreateSprite(Properties.Resources.d_drone_jpg, 128, 128);
-            Sprite cameye = GraphicsUtilities.CreateSprite(Properties.Resources.cameye_jpg, 128, 128);
-
-            Registry.SpawnIcons.Add("DroneFlesh", fpeye);
-            Registry.SpawnIcons.Add("DroneSkull Variant", fpface);
-            Registry.SpawnIcons.Add("MinosBoss", minos);
-            Registry.SpawnIcons.Add("Wicked", wicked);
-            Registry.SpawnIcons.Add("Leviathan", levi);
-            Registry.SpawnIcons.Add("Drone Variant", d_drone);
-            Registry.SpawnIcons.Add("DroneFleshCamera Variant", cameye);
         }
     }
 }
