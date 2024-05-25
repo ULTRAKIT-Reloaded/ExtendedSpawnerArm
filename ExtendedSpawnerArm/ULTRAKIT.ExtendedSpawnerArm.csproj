@@ -147,7 +147,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
-    <Compile Include="Objects\CustomSpawnable.cs" />
+    <Compile Include="Objects\CustomObjectSpawnable.cs" />
+    <Compile Include="Objects\CustomEnemySpawnable.cs" />
+    <Compile Include="Objects\VanillaEnemies\DarkDroneSpawnable.cs" />
+    <Compile Include="Objects\VanillaEnemies\PanopticonEyeSpawnable.cs" />
+    <Compile Include="Objects\VanillaEnemies\WickedSpawnable.cs" />
+    <Compile Include="Objects\VanillaEnemies\BigMinosSpawnable.cs" />
+    <Compile Include="Objects\VanillaEnemies\FleshPrisonFaceSpawnable.cs" />
+    <Compile Include="Objects\VanillaEnemies\FleshPrisonEyeSpawnable.cs" />
+    <Compile Include="Objects\VanillaEnemies\LeviathanSpawnable.cs" />
     <Compile Include="Patches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
