@@ -146,6 +146,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviour\DefaultSpawnableRegistrar.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Objects\CustomObjectSpawnable.cs" />
     <Compile Include="Objects\CustomEnemySpawnable.cs" />
@@ -165,7 +166,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Behaviour\SpawnablesLoader.cs" />
-    <Compile Include="Behaviour\SpawnablesInjector.cs" />
     <Compile Include="Registry.cs" />
   </ItemGroup>
   <ItemGroup>

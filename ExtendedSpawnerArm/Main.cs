@@ -11,6 +11,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using ULTRAKIT.Core;
 using BepInEx.Logging;
+using ULTRAKIT.SpawnerArm.Behaviour;
 
 namespace ULTRAKIT.SpawnerArm
 {
@@ -27,7 +28,8 @@ namespace ULTRAKIT.SpawnerArm
 
         public void Start()
         {
-            SpawnablesInjector.Init();
+            DefaultSpawnableRegistrar.RegisterSpawnables();
+
             Harmony harmony = new Harmony("ULTRAKIT.ExtendedSpawnerArm");
             harmony.PatchAll();
 

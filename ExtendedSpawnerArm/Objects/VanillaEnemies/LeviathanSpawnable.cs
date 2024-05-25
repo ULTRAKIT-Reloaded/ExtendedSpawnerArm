@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ULTRAKIT.Core;
 using UnityEngine;
 
-namespace ULTRAKIT.SpawnerArm.Objects
+namespace ULTRAKIT.SpawnerArm.Objects.VanillaEnemies
 {
     internal class LeviathanSpawnable : CustomEnemySpawnable
     {

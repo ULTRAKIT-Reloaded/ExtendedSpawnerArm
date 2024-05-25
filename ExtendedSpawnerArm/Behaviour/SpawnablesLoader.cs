@@ -13,85 +13,54 @@ namespace ULTRAKIT.SpawnerArm
 {
     public static class SpawnablesLoader
     {
-        private static List<CustomSpawnable> spawnables => Registry.Spawnables;
-        private static SpawnableObjectsDatabase spawnablesDatabase => Registry.SpawnablesDatabase;
-
-        public static bool init = false;
-
         /// <summary>
-        /// Loads spawnables into the spawner arm automatically from a loaded asset bundle.
+        /// Loads spawnables into the registry from a loaded asset bundle.
         /// </summary>
         /// <param name="bundle"></param>
         public static void LoadSpawnables(AssetBundle bundle)
         {
-            CustomSpawnable[] ukS = bundle.LoadAllAssets<CustomSpawnable>();
-            foreach (CustomSpawnable ukSpawnable in ukS)
+            CustomSpawnable[] spawnables = bundle.LoadAllAssets<CustomSpawnable>();
+            foreach (CustomSpawnable spawnable in spawnables)
             {
-                ukSpawnable.prefab.AddComponent<RenderFixer>().LayerName = "Outdoors";
-                if (!spawnables.Contains(ukSpawnable))
-                    spawnables.Add(ukSpawnable);
+                spawnable.prefab.AddComponent<RenderFixer>().LayerName = "Outdoors";
+                if (!Registry.Spawnables.Contains(spawnable))
+                    Registry.Spawnables.Add(spawnable);
             }
         }
 
         /// <summary>
-        /// Removes spawnables from the registry.
+        /// Loads a spawnable into the registry.
         /// </summary>
         /// <param name="bundle"></param>
-        public static void UnloadSpawnables(AssetBundle bundle)
+        public static void LoadSpawnable(CustomSpawnable spawnable)
         {
-            CustomSpawnable[] ukS = bundle.LoadAllAssets<CustomSpawnable>();
-            foreach (CustomSpawnable ukSpawnable in ukS)
-            {
-                if (spawnables.Contains(ukSpawnable))
-                    spawnables.Remove(ukSpawnable);
-            }
+            spawnable.prefab.AddComponent<RenderFixer>().LayerName = "Outdoors";
+            if (!Registry.Spawnables.Contains(spawnable))
+                Registry.Spawnables.Add(spawnable);
         }
 
-        /// <summary>
-        /// Internal, do not use. Converts UKSpawnables into native SpawnableObjects.
-        /// </summary>
-        /// <param name="spawnMenu"></param>
-        public static void InjectSpawnables(SpawnMenu spawnMenu)
+        internal static void InjectSpawnables(SpawnMenu spawnMenu)
         {
-            List<SpawnableObject> tools = new List<SpawnableObject>();
             List<SpawnableObject> enemies = new List<SpawnableObject>();
             List<SpawnableObject> objects = new List<SpawnableObject>();
 
-            foreach (CustomSpawnable ukSpawnable in Registry.Spawnables)
+            foreach (CustomSpawnable spawnable in Registry.Spawnables)
             {
-                SpawnableObject spawnable = ScriptableObject.CreateInstance<SpawnableObject>();
-                spawnable.identifier = ukSpawnable.identifier;
-                spawnable.spawnableObjectType = ukSpawnable.type;
-                spawnable.objectName = ukSpawnable.identifier;
-                spawnable.type = "UKSpawnable";
-                spawnable.enemyType = EnemyType.MinosPrime;
-                spawnable.gameObject = ukSpawnable.prefab;
-                spawnable.preview = new GameObject();
-                spawnable.gridIcon = ukSpawnable.icon;
-
-                switch (ukSpawnable.type)
+                if (spawnable is CustomEnemySpawnable)
                 {
-                    case SpawnableObject.SpawnableObjectDataType.Tool:
-                        spawnable.spawnableType = SpawnableType.BuildHand;
-                        tools.Add(spawnable);
-                        break;
-                    case SpawnableObject.SpawnableObjectDataType.Enemy:
-                        spawnable.spawnableType = SpawnableType.SimpleSpawn;
-                        enemies.Add(spawnable);
-                        break;
-                    case SpawnableObject.SpawnableObjectDataType.Object:
-                        spawnable.spawnableType = SpawnableType.SimpleSpawn;
-                        objects.Add(spawnable);
-                        break;
+                    enemies.Add(spawnable.GetSpawnable());
+                    continue;
+                }
+                if (spawnable is CustomObjectSpawnable)
+                {
+                    objects.Add(spawnable.GetSpawnable());
+                    continue;
                 }
             }
 
-            enemies.AddRange(SpawnablesInjector._enemies);
-
-            // Adds loaded spawnables onto the pre-existing list
-            Registry.Tools = spawnablesDatabase.sandboxTools.Concat(tools).ToArray();
-            Registry.Enemies = spawnablesDatabase.enemies.Concat(enemies).ToArray();
-            Registry.Objects = spawnablesDatabase.objects.Concat(objects).ToArray();
+            // Combines custom and vanilla spawnables
+            Registry.Enemies = Registry.VanillaSpawnablesDatabase.enemies.Concat(enemies).ToArray();
+            Registry.Objects = Registry.VanillaSpawnablesDatabase.objects.Concat(objects).ToArray();
         }
     }
 }

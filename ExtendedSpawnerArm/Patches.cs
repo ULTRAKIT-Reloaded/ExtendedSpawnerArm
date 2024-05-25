@@ -12,25 +12,22 @@ namespace ULTRAKIT.SpawnerArm.Patches
     [HarmonyPatch(typeof(SpawnMenu))]
     public static class SpawnMenuPatch
     {
+        private static bool VanillaDatabaseCopied = false;
+
         [HarmonyPatch("Awake")]
         [HarmonyPrefix]
         public static void AwakePrefix(SpawnMenu __instance, SpawnableObjectsDatabase ___objects)
         {
             // Creates a constant copy of vanilla database for loader use
             // The database persists across loads/scenes, so doing otherwise would keep adding spawnables to a list that already has them
-            if (!SpawnablesLoader.init)
+            if (!VanillaDatabaseCopied)
             {
-                // Doing it here does not cause the bloodstains to turn into squares
-                SpawnablesInjector.Init();
-
-                Registry.SpawnablesDatabase.enemies = ___objects.enemies;
-                Registry.SpawnablesDatabase.objects = ___objects.objects;
-                Registry.SpawnablesDatabase.sandboxTools = ___objects.sandboxTools;
-                SpawnablesLoader.init = true;
+                Registry.VanillaSpawnablesDatabase.enemies = ___objects.enemies;
+                Registry.VanillaSpawnablesDatabase.objects = ___objects.objects;
+                VanillaDatabaseCopied = true;
             }
 
             SpawnablesLoader.InjectSpawnables(__instance);
-            ___objects.sandboxTools = Registry.Tools;
             ___objects.enemies = Registry.Enemies;
             ___objects.objects = Registry.Objects;
         }
