@@ -34,7 +34,9 @@ namespace ULTRAKIT.SpawnerArm
         /// <param name="bundle"></param>
         public static void LoadSpawnable(CustomSpawnable spawnable)
         {
-            spawnable.prefab.AddComponent<RenderFixer>().LayerName = "Outdoors";
+            if (spawnable.prefab != null)
+                spawnable.prefab.AddComponent<RenderFixer>().LayerName = "Outdoors";
+
             if (!Registry.Spawnables.Contains(spawnable))
                 Registry.Spawnables.Add(spawnable);
         }
@@ -49,6 +51,8 @@ namespace ULTRAKIT.SpawnerArm
                 if (spawnable is CustomEnemySpawnable)
                 {
                     enemies.Add(spawnable.GetSpawnable());
+                    Debug.Log("RAW SPAWNABLE ID: " + spawnable.identifier);
+                    Debug.Log("GENERATED SPAWNABLE ID: " + spawnable.GetSpawnable().identifier);
                     continue;
                 }
                 if (spawnable is CustomObjectSpawnable)
@@ -61,6 +65,11 @@ namespace ULTRAKIT.SpawnerArm
             // Combines custom and vanilla spawnables
             Registry.Enemies = Registry.VanillaSpawnablesDatabase.enemies.Concat(enemies).ToArray();
             Registry.Objects = Registry.VanillaSpawnablesDatabase.objects.Concat(objects).ToArray();
+
+            foreach (SpawnableObject spawnable in Registry.Enemies)
+            {
+                Debug.Log(spawnable.identifier);
+            }
         }
     }
 }

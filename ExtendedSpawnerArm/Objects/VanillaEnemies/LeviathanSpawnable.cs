@@ -10,18 +10,12 @@ namespace ULTRAKIT.SpawnerArm.Objects.VanillaEnemies
 {
     internal class LeviathanSpawnable : CustomEnemySpawnable
     {
-        private void FillFields()
+        internal void FillFields()
         {
             this.identifier = "extendedspawnerarm.leviathan";
             this.prefab = GenerateLeviathanPrefab();
             this.icon = GraphicsUtilities.CreateSprite(Properties.Resources.levi_jpg, 128, 128);
             this.enemyType = EnemyType.Leviathan;
-        }
-
-        public new SpawnableObject GetSpawnable()
-        {
-            FillFields();
-            return base.GetSpawnable();
         }
 
         private GameObject GenerateLeviathanPrefab()

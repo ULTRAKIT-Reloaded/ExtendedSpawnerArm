@@ -12,13 +12,33 @@ namespace ULTRAKIT.SpawnerArm.Behaviour
     {
         internal static void RegisterSpawnables()
         {
-            SpawnablesLoader.LoadSpawnable(ScriptableObject.CreateInstance<BigMinosSpawnable>());
-            SpawnablesLoader.LoadSpawnable(ScriptableObject.CreateInstance<DarkDroneSpawnable>());
-            SpawnablesLoader.LoadSpawnable(ScriptableObject.CreateInstance<FleshPrisonEyeSpawnable>());
-            SpawnablesLoader.LoadSpawnable(ScriptableObject.CreateInstance<FleshPrisonFaceSpawnable>());
-            SpawnablesLoader.LoadSpawnable(ScriptableObject.CreateInstance<LeviathanSpawnable>());
-            SpawnablesLoader.LoadSpawnable(ScriptableObject.CreateInstance<PanopticonEyeSpawnable>());
-            SpawnablesLoader.LoadSpawnable(ScriptableObject.CreateInstance<WickedSpawnable>());
+            BigMinosSpawnable bigMinosSpawnable = ScriptableObject.CreateInstance<BigMinosSpawnable>();
+            bigMinosSpawnable.FillFields();
+            SpawnablesLoader.LoadSpawnable(bigMinosSpawnable);
+
+            DarkDroneSpawnable darkDroneSpawnable = ScriptableObject.CreateInstance<DarkDroneSpawnable>();
+            darkDroneSpawnable.FillFields();
+            SpawnablesLoader.LoadSpawnable(darkDroneSpawnable);
+
+            FleshPrisonEyeSpawnable fleshPrisonEyeSpawnable = ScriptableObject.CreateInstance<FleshPrisonEyeSpawnable>();
+            fleshPrisonEyeSpawnable.FillFields();
+            SpawnablesLoader.LoadSpawnable(fleshPrisonEyeSpawnable);
+
+            FleshPrisonFaceSpawnable fleshPrisonFaceSpawnable = ScriptableObject.CreateInstance<FleshPrisonFaceSpawnable>();
+            fleshPrisonFaceSpawnable.FillFields();
+            SpawnablesLoader.LoadSpawnable(fleshPrisonFaceSpawnable);
+            
+            LeviathanSpawnable leviathanSpawnable = ScriptableObject.CreateInstance<LeviathanSpawnable>();
+            leviathanSpawnable.FillFields();
+            SpawnablesLoader.LoadSpawnable(leviathanSpawnable);
+
+            PanopticonEyeSpawnable panopticonEyeSpawnable = ScriptableObject.CreateInstance<PanopticonEyeSpawnable>();
+            panopticonEyeSpawnable.FillFields();
+            SpawnablesLoader.LoadSpawnable(panopticonEyeSpawnable);
+
+            WickedSpawnable wickedSpawnable = ScriptableObject.CreateInstance<WickedSpawnable>();
+            wickedSpawnable.FillFields();
+            SpawnablesLoader.LoadSpawnable(wickedSpawnable);
         }
     }
 }

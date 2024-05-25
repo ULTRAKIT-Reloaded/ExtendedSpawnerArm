@@ -10,18 +10,12 @@ namespace ULTRAKIT.SpawnerArm.Objects.VanillaEnemies
 {
     internal class PanopticonEyeSpawnable : CustomEnemySpawnable
     {
-        private void FillFields()
+        internal void FillFields()
         {
             this.identifier = "extendedspawnerarm.panopticoneye";
             this.prefab = AssetLoader.AssetFind<GameObject>("DroneFleshCamera Variant.prefab");
             this.icon = GraphicsUtilities.CreateSprite(Properties.Resources.cameye_jpg, 128, 128);
             this.enemyType = EnemyType.Drone;
-        }
-
-        public new SpawnableObject GetSpawnable()
-        {
-            FillFields();
-            return base.GetSpawnable();
         }
     }
 }

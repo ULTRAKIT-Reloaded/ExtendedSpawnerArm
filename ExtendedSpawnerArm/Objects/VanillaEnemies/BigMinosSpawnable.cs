@@ -10,19 +10,14 @@ namespace ULTRAKIT.SpawnerArm.Objects.VanillaEnemies
 {
     internal class BigMinosSpawnable : CustomEnemySpawnable
     {
-        private void FillFields()
+        internal void FillFields()
         {
             this.identifier = "extendedspawnerarm.minos";
             this.prefab = AssetLoader.AssetFind<GameObject>("MinosBoss.prefab");
             this.icon = GraphicsUtilities.CreateSprite(Properties.Resources.minos_jpg, 128, 128);
             this.enemyType = EnemyType.Minos;
-        }
 
-        public new SpawnableObject GetSpawnable()
-        {
-            FillFields();
             SetHealthBar();
-            return base.GetSpawnable();
         }
 
         private void SetHealthBar()
